@@ -1,11 +1,9 @@
 var express = require('express');
+var bcrypt = require('bcrypt');
 var router = express.Router();
 router.use(express.urlencoded({extended:false}))
-
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+    res.render('createAccount', {title: 'createuser'});
 });
 
 module.exports = router;
-
