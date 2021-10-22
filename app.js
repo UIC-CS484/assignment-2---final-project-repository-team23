@@ -1,3 +1,5 @@
+
+
 var createError = require('http-errors');
 var express = require('express');
 var session = require('express-session');
@@ -13,36 +15,32 @@ var loginSubmitRouter = require('./routes/loginSubmit');
 var dashboardRouter = require('./routes/dashboard.js');
 var logoutRouter = require('./routes/logout.js')
 
-
 var app = express();
-
-//passport config
-const initializePassport = require('.config/passport-config')
-initializePassport(
-  passport,
-  email => users.find(user => user.email === email),
-  id => users.find(user => user.id === id)
-)
-
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.use(express.urlencoded({extended:false}))
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
-}))
-app.use(passport.initialize())
-app.use(passport.session())
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Passport middleware
+//passport config of strategy and search user
+require('./config/passport-config')(passport)
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+
+/**if(process.env.NODE_ENV !== 'production'){
+  require('dotenv').config()
+}**/ 
+
+
+app.use(session({
+  secret: "randomstring",
+  resave: false,
+  saveUninitialized: false
+}))
+
+//Passport middleware to initialize session
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -52,7 +50,6 @@ app.use('/submit', submitRouter);
 app.use('/loginSubmit', loginSubmitRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/logout', logoutRouter);
-
 
 
 // catch 404 and forward to error handler

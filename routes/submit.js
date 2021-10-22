@@ -44,12 +44,6 @@ router.post('/', async (req, res) => {
         res.redirect('/createAccount')
     }})
 
-function checkAuthenticated(req, res, next){
-    if(req.isAuthenticated()){
-        return next()
-    }
-    res.redirect('/index')
-}
 
   
 

@@ -1,12 +1,28 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require('bcrypt');
-const flash = require('express-flash')
-router.use(express.urlencoded({extended:false}))
+var passport = require('passport');
 
-router.post('/', checkNotAuthenticated, passport.authenticate('local', {
-	successRedirect: '/dashboard',
-	failureRedirect: '/index',
-	failureFlash: true
-	}))
+router.post('/', (req, res, next) => {
+	passport.authenticate('local', {
+		successRedirect: '/dashboard',
+		failureRedirect: '/'
+	})(req, res, next);
+
+
+});
+/**router.post('/', passport.authenticate('local', { successRedirect: '/dashboard', failureRedirect: '/'}, (req,res) => {
+	
+}
+))**
+
+/** 
+router.post('/',  (req, res, next) =>{
+	passport.authenticate('local', {
+		successRedirect: '/dashboard',
+		failureRedirect: '/'
+		
+		})(req, res, next);
+	
+});*/
+
 module.exports = router;

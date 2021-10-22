@@ -1,14 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require('bcrypt');
-router.use(express.urlencoded({extended:false}))
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     let userInfo = req.user;
-    console.log(req.user);
+    console.log("lalala"+req.user);
 
-    res.render('confirmation', {userInfo});
+    res.render('dashboard', {userInfo});
     
 });
 
