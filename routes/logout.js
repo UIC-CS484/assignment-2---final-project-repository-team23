@@ -5,7 +5,7 @@ var router = express.Router();
 
 
 /* GET home page. */
-router.get('/', function(req, res){
+router.post('/', function(req, res){
   req.logout();
   res.redirect('/');
 });

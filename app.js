@@ -34,7 +34,10 @@ app.set('view engine', 'hbs');
 app.use(session({
   secret: "randomstring",
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {	
+    maxAge: 1000 * 60 * 10	
+  }
 }))
 
 //Passport middleware to initialize session

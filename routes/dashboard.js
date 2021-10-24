@@ -4,7 +4,6 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     let userInfo = req.user;
-    console.log("lalala"+req.user);
 
     res.render('dashboard', {userInfo});
     
