@@ -1,5 +1,3 @@
-
-
 var createError = require('http-errors');
 var express = require('express');
 var session = require('express-session');
@@ -7,7 +5,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport');
-const flash = require('express-flash')
 var indexRouter = require('./routes/index');
 var createAccountRouter = require('./routes/createAccount');
 var submitRouter = require('./routes/submit');
