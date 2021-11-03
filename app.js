@@ -1,10 +1,9 @@
-var createError = require('http-errors');
 var express = require('express');
-var session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const passport = require('passport');
+var passport = require('passport');
+
 var indexRouter = require('./routes/index');
 var createAccountRouter = require('./routes/createAccount');
 var submitRouter = require('./routes/submit');
@@ -14,35 +13,37 @@ var logoutRouter = require('./routes/logout.js')
 
 var app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-//passport config of strategy and search user
-require('./config/passport-config')(passport)
+require('./boot/db')();
+require('./boot/auth')();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-/**if(process.env.NODE_ENV !== 'production'){
-  require('dotenv').config()
-}**/ 
 
-
-app.use(session({
-  secret: "randomstring",
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('express-session')({
+  secret: "JenniferLopez",
   resave: false,
-  saveUninitialized: false,
-  cookie: {	
-    maxAge: 1000 * 60 * 10	
-  }
-}))
+  saveUninitialized: false
+}));
+
+app.use(function(req, res, next){
+  var msgs = req.session.messages || [];
+  res.locals.messages = msgs;
+  res.locals.hasMessages = !! msgs.length;
+  req.session.messages = [];
+  next();
+})
+
 
 //Passport middleware to initialize session
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.authenticate('session'));
 
 app.use('/', indexRouter);
 app.use('/createAccount', createAccountRouter);
@@ -53,11 +54,12 @@ app.use('/logout', logoutRouter);
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+//app.use(function(req, res, next) {
+//  next(createError(404));
+//});
 
 // error handler
+/*
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -66,6 +68,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+}); **/
 
 module.exports = app;

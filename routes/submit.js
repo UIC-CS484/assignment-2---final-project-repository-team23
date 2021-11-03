@@ -1,57 +1,34 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var user = require('../model/user-structure.js');
-let userData = fs.readFileSync('./users.json');
-let siteUsers = JSON.parse(userData);
+var crypto = require('crypto');
+var db = require('../db');
 
 router.use(express.urlencoded({extended:false}))
 
-router.post('/', async(req, res)=>{
-    try{
-        if(checkPasswordLength(req.body.password)==false){
-            var error = "Kindly input password length of minimum 8 characters.";
-            res.render('error', {error: error});
-        } else {
-            siteUsers.push({
-                "id":Date.now().toString(),
-                "first_name":req.body.first_name,
-                "last_name": req.body.last_name,
-                "email": req.body.email,
-                "password": req.body.password
-            })
-            const usersString = JSON.stringify(siteUsers)
-            for(var x = 0; x < usersString.length; x++){
-                if(user.email!=usersString[x].email){
-                    siteUsers.push(user);
-                    x = usersString.length;
-                } else {
-                    usersString[x].email = user.email
-                    x = usersString.length;
-                }
-            }
-            fs.writeFile('./users.json', usersString, err => {
-                if(err){
-                    console.log('Error writing file', err)
-                }else{
-                    console.log('Successfully wrote to file')
-                    res.render('confirmation', {first_name: user.first_name, last_name: user.last_name});
-                }
-            })
-        }
+router.post('/', function(req, res, next){
+    var salt = crypto.randomBytes(16);
+    crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+        if(err){return next(err);}
+        db.run('INSERT INTO user (username, hashed_password, salt, name) VALUES (?, ?, ?, ?)',[
+            req.body.username,
+            hashedPassword,
+            salt,
+            req.body.name 
+        ], function(err){
+            if (err) {return next(err);}
+            var user = {
+                id : this.lastID.toString(),
+                username: req.body.username,
+                displayName : req.body.name
+            };
+            req.login(user, function(err){
+                if(err){return next(err);}
+                //res.redirect('/');
+                res.render('confirmation', {first_name: user.first_name, last_name: user.last_name});
+            });
+        });    
+    });
+});
 
-    }catch{
-        res.redirect('/createAcccount')
-    }
-})
-
-function checkPassword(password){
-    if(password.length < 8){
-        return false
-    }
-
-    else return true
-}
-
-exports.checkPassword = checkPassword
-module.exports = router
+module.exports = router;
