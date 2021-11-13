@@ -22,7 +22,6 @@ module.exports = function(){
                 username : row.username,
                 displayName: row.name
             };
-            console.log(user.username);
             cb(null, user)
         });
 
@@ -32,8 +31,7 @@ module.exports = function(){
     passport.serializeUser(function(user, cb){
        // process.nextTick(function(){
             //cb(null, {id:user.id, username: user.username});
-            console.log(user);
-            cb(null, {user});
+            cb(null, user);
        // });
     });
 
