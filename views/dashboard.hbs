@@ -1,4 +1,76 @@
-<h1>Welcome back ! {{first_name}}  {{last_name}}</h1>
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+</head>
+
+
+<body>
+<form action = "/logout" method ="GET">
+  <button type = "submit">Log Out</button>
+</form>
+
+
+
+<h1>Welcome back ! {{data}}</h1>
+<script>
+  let user_id = {{user}}
+</script>
 
 <a href = "/">Home Page</a>
 
+<div>
+  <h3>Update user information</h3>
+  <form action="/update" method="POST">
+  										<div>
+    										<label for="username">username</label>
+    										<input type="text" id="username" name="username" required>
+  										</div>
+  										<button type="submit">Update</button>
+									</form>
+									
+  <h3>Delete user account</h3>
+  <form action="/delete" method="DELETE">
+  										<button type="submit">Delete</button>
+									</form>
+									
+
+
+</div>
+
+</body>
+</html>
