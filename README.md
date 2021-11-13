@@ -1,4 +1,4 @@
-﻿# assignment-2---final-project-repository-team23
+﻿# assignment-3---final-project-repository-team23
  
  # Studio 20
 
@@ -40,6 +40,34 @@ Unit tests to check critical back-end functions -
 1. Check secure storage of passwords in the database
 2. Visualization of the data resourced from an external REST API using a charting library with user being able to manipulate the data as per user's desire.
 3. User able to create, delete and update their account
+
+## ASSIGNMENT 3
+
+# Requirement 1 - ERD 
+
+![image](https://user-images.githubusercontent.com/89627272/141601100-fb22f845-aff3-4dce-99fd-65a17f09a3b5.png)
+
+# Requirement 2 - Implementation of SQLITE DB 
+1) Proper Configuration of Database
+CRUD - Create, Retrieve, Update and Delete operations implemented for table user
+Session is stored in memory store.
+2) Parameterized SQL queries implemented for CRUD. Database does contain hashed passwords for authenticated users.
+
+# Requirement 3 - RESTFul API 
+Using Postman's CountriesNow API to get data for cities in state of Delhi - 
+https://countriesnow.space/api/v0.1/countries/state/cities
+{
+    "country": "India",
+    "state": "Delhi"
+}
+
+# Requirement 4 - Front-end Data Manipulation using table, chart, map, etc
+Implemented a bar graph using chart.js
+Bar Graph shows consistently good ratings received from Clients
+
+            
+
+
 
 
 
