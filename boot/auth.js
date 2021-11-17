@@ -16,12 +16,12 @@ module.exports = function(){
                 if (!crypto.timingSafeEqual(row.hashed_password, hashedPassword)) {
                   return cb(null, false, { message: 'Incorrect username or password.' });
                 }
-                
-            var user = {
+            var user = row.id.toString();   
+            /**var user = {
                 id: row.id.toString(),
                 username : row.username,
                 displayName: row.name
-            };
+            };**/
             cb(null, user)
         });
 
