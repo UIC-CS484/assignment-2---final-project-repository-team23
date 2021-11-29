@@ -7,12 +7,15 @@ router.use(express.urlencoded({extended:false}))
 
 router.post('/', function(req, res, next){
 
-    db.get('update user set username = ? where id = ?', [req.body.username, req.user], function(err, rowid){
+    console.log(req.body.username);
+    console.log(req.user);
+    let userNAmeInfo2 = req.user.displayName;
+    db.get('update user set username = ? where id = ?', [req.body.username, req.user.id], function(err, rowid){
         if (err) {return cb(err);}
         //res.send(popup('User is updated'));
     });
 
-    res.render('dashboard');
+    res.render('dashboard', {userNAmeInfo2});
   
 })
 

@@ -5,10 +5,11 @@ var db = require('../db');
 router.use(express.urlencoded({extended:false}))
 
 router.post('/', function(req, res, next){
-    db.get('delete from user where id = ?', [req.user], function(err, rowid){
+    console.log(req.user.id);
+    db.get('delete from user where id = ?', [req.user.id], function(err, rowid){
         if(err){return cb(err);}
     });
-    res.render('/index');
+    res.render('index');
 });
 
 

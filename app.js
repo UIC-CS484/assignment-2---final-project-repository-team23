@@ -12,6 +12,7 @@ var dashboardRouter = require('./routes/dashboard.js');
 var logoutRouter = require('./routes/logout');
 var updateRouter = require('./routes/update');
 var deleteRouter = require('./routes/delete');
+var userFeedbackRouter = require('./routes/userFeedback');
 
 var app = express();
 
@@ -54,6 +55,7 @@ app.use('/dashboard', dashboardRouter);
 app.use('/logout', logoutRouter);
 app.use('/update', updateRouter);
 app.use('/delete', deleteRouter);
+app.use('/userFeedback', userFeedbackRouter);
 
 
 module.exports = app;
