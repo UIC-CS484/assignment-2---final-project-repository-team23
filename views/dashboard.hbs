@@ -46,10 +46,8 @@ input[type=submit]:hover {
 
 
 
-<h1>Welcome back ! {{data}}</h1>
-<script>
-  let user_id = {{user}}
-</script>
+<h1>Welcome back ! {{userNAmeInfo2}}</h1>
+
 
 <a href = "/">Home Page</a>
 
@@ -67,6 +65,27 @@ input[type=submit]:hover {
   <form action="/delete" method="POST">
   										<button type="submit">Delete</button>
 									</form>
+
+    <h3>User Feedback</h3>
+    {{response}}
+    <div class="container">
+									<h3>Feedback Form</h3>
+									<p>We are obsessed with customer happiness. Please let us know if you would like to schedule an appointment and any feedback you may want us to take into consideration.</p>
+									<form method="post" action="/userFeedback">
+										<div class="row gtr-uniform">
+											<div class="col-12"><input type="text" name="appointment" id="appointment" placeholder="Appointment"/></div>
+											<div class="col-12"><textarea name="feedback" id="feedback" placeholder="Feedback" rows="8"></textarea></div>
+											<div class="col-12">
+												<ul class="actions">
+													<li><input type="submit" class="primary" value="Submit Feedback" /></li>
+													<li><input type="reset" value="Reset Form" /></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+								</div>
+
+
 									
 
 

@@ -5,7 +5,7 @@ var db = require('../db');
 
 module.exports = function(){
     passport.use(new Strategy(function(username, password, cb){
-        console.log("Passport has been trigger");
+        console.log("Passport has been triggered");
        db.get('select rowid as id, * from user where username = ?', [username], function(err, row){
 
             if (err) {return cb(err); }
@@ -16,12 +16,12 @@ module.exports = function(){
                 if (!crypto.timingSafeEqual(row.hashed_password, hashedPassword)) {
                   return cb(null, false, { message: 'Incorrect username or password.' });
                 }
-            var user = row.id.toString();   
-            /**var user = {
+            //var user = row.id.toString();   
+            var user = {
                 id: row.id.toString(),
                 username : row.username,
                 displayName: row.name
-            };**/
+            };
             cb(null, user)
         });
 

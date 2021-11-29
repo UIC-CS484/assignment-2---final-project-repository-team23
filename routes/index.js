@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 router.use(express.urlencoded({extended:false}))
 var axios = require('axios');
-//import { Chart } from 'chart.js';
-//import { WordCloudChart } from 'chartjs-chart-wordcloud';
 
 
 /* GET home page. */
@@ -18,10 +16,12 @@ router.get('/', function(req, res, next) {
       console.log(delhi);
       var keys = delhi.data;
       console.log(keys);
-      let fruits = [keys[2], keys[5], keys[7], keys[10], keys[14], keys[15]]
-      console.log(fruits)
-      res.render('index', {data: fruits});
+      let states = [keys[2], keys[5], keys[7], keys[10], keys[14], keys[15]]
+      console.log(states[0])
+      
     });
+
+    res.render('index');
     
 });
 

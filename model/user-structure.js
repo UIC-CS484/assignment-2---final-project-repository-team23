@@ -1,8 +1,9 @@
 var user = {
     id : "",
-    first_name: "",
-    last_name: "",
-    email: "",
-    password: ""
+    username: "",
+    hashed_password: "",
+    salt: "",
+    name: "",
+    email: ""
 }
 exports.user;
