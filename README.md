@@ -3,9 +3,45 @@
  # Studio 20
 
 Studio 20 is an entrepreneurial venture providing interior design and architectural solutions remotely as well as turn-key.
+This website is intended to be informational to potential customers.
+Site makes use of Postman's countries now api to get various cities in state of Delhi in India where the business has provided services as of now.
+
+```bash
+var axios = require('axios');
+
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    
+    const state = {
+      "country": "India",
+      "state": "Delhi"
+  }
+    axios.post('https://countriesnow.space/api/v0.1/countries/state/cities', state).then(resp=>{
+      var delhi = resp.data;
+      console.log(delhi);
+      var keys = delhi.data;
+      console.log(keys);
+      let states = [keys[2], keys[5], keys[7], keys[10], keys[14], keys[15]]
+      console.log(states[0])
+      
+    });
+
+    res.render('index');
+    
+});
+
+```
 
 ## Team 23
 Gopika Bhardwaj
+
+## Tools and Resources used 
+Node.js, Express.js, Handlebars.js templating, HTML, CSS, JS, JSON, SQL, Sqlite
+Visual Studio Code, DB Browser for SQL. Docker, Heroku, Github
+
+## URL to host site
+https://studio20.herokuapp.com/
 
 ## Start
 ```bash
